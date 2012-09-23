@@ -57,7 +57,7 @@ class Redirect_Editor_Plugin {
 	}
 
 	// transform POSTed string data in array and save
-	// format: /2012/09/old-post-destination/ http://www.example.com/2012/09/new-post-destination/
+	// format: /2012/09/old-post/ http://www.example.com/2012/09/new-post/
 	function save_data() {
 		if ( !isset( $_POST['function'] ) || !check_admin_referer( 'redirect-editor' ) ) {
 			return false;
@@ -71,8 +71,9 @@ class Redirect_Editor_Plugin {
 			$redirects_array = array();
 			foreach ( $redirect_lines as $redirect_line ) {
 				$redirect_line = explode( " ", preg_replace( '/\s+/', ' ', trim( $redirect_line ) ), 2 );
-				if ( count( $redirect_line ) != 2 )
+				if ( count( $redirect_line ) != 2 ) {
 					continue;
+				}
 				$redirects_array[$redirect_line[0]] = $redirect_line[1];
 			}
 
