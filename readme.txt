@@ -21,11 +21,11 @@ destination to redirect to, separated by a space.
 
     /2012/09/old-post/ http://www.example.com/2012/09/new-post/
 
-To use simply install and visit the Settings > Redirect Editor page.
+After installing, go to Settings > Redirect Editor to configure.
 
 == Installation ==
 
-Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
+Extract the zip file, drop the contents in your wp-content/plugins/ directory, and then activate from the Plugins page.
 
 == Frequently Asked Questions ==
 
