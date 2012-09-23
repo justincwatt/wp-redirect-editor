@@ -48,7 +48,7 @@ class Redirect_Editor_Plugin {
 
 	// get saved data and transform into string
 	function load_data() {
-		$redirects_array = get_option( 'redirect_editor' );
+		$redirects_array = get_option( 'redirect_editor', array() );
 		$redirects = '';
 		foreach ( $redirects_array as $key => $value ) {
 			$redirects .= $key . ' ' . $value . "\n";
@@ -87,7 +87,7 @@ class Redirect_Editor_Plugin {
 	// it all comes down to this
 	function redirect_editor( $query ) {
 		$request_url = $_SERVER["REQUEST_URI"];
-		$redirects = get_option( 'redirect_editor' );
+		$redirects = get_option( 'redirect_editor', array() );
 
 		if ( array_key_exists( $request_url, $redirects ) ) {
 			wp_redirect( $redirects[$request_url], 301 );
