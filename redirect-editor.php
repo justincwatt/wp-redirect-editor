@@ -29,9 +29,9 @@ new Redirect_Editor_Plugin();
 class Redirect_Editor_Plugin {
 
 	public function __construct() {
-		add_action( 'admin_init', array( &$this, 'save_data' ) );
-		add_action( 'admin_menu', array( &$this, 'add_admin_menu' ) );
-		add_action( 'pre_get_posts', array( &$this, 'redirect' ) );
+		add_action( 'admin_init', array( $this, 'save_data' ) );
+		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
+		add_action( 'pre_get_posts', array( $this, 'redirect' ) );
 	}
 
 	public function add_admin_menu() {
@@ -63,7 +63,7 @@ class Redirect_Editor_Plugin {
 		}
 
 		if ( isset( $_POST['redirects']) && check_admin_referer( 'redirect-editor' ) ) {
-			$redirects_raw = $_POST['redirects'];
+			$redirects_raw = stripslashes( $_POST['redirects'] );
 
 			# explode textarea on newline
 			$redirect_lines = explode( "\n", $redirects_raw );
