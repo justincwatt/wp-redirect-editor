@@ -29,12 +29,9 @@ new Redirect_Editor_Plugin();
 class Redirect_Editor_Plugin {
 
 	public function __construct() {
-
 		add_action( 'admin_init', array( &$this, 'save_data' ) );
-
 		add_action( 'admin_menu', array( &$this, 'add_admin_menu' ) );
-
-		add_action( 'pre_get_posts', array( &$this, 'redirect_editor' ) );
+		add_action( 'pre_get_posts', array( &$this, 'redirect' ) );
 	}
 
 	public function add_admin_menu() {
@@ -42,52 +39,72 @@ class Redirect_Editor_Plugin {
 	}
 
 	public function admin_page() {
-		$redirects = $this->load_data();
+		$redirects = $this->get_setting('redirects_raw');
 		require_once( 'form.php' );
 	}
 
-	// get saved data and transform into string
-	function load_data() {
-		$redirects_array = get_option( 'redirect_editor', array() );
-		$redirects = '';
-		foreach ( $redirects_array as $key => $value ) {
-			$redirects .= $key . ' ' . $value . "\n";
+	function get_setting( $name, $default = '') {
+		$settings = get_option( 'redirect_editor', array() );
+
+		if ( array_key_exists( $name, $settings ) ) {
+			return $settings[$name];
+		} else {
+			return $default;
 		}
-		return $redirects;
 	}
 
-	// transform POSTed string data in array and save
+	// transform POSTed string data into array and save
 	// format: /2012/09/old-post/ http://www.example.com/2012/09/new-post/
 	function save_data() {
-		if ( !isset( $_POST['function'] ) || !check_admin_referer( 'redirect-editor' ) ) {
-			return false;
+		// since this gets called in the admin_init action, we only want it to 
+		// run if we're actually processing data for the redirect_editor
+		if ( !isset( $_POST['function'] ) || $_POST['function'] != 'redirect-editor-save' ) {
+			return;
 		}
 
-		if ( isset( $_POST['redirects']) ) {
-			# explode textarea on newline
-			$redirect_lines = explode( "\n", $_POST['redirects'] );
+		if ( isset( $_POST['redirects']) && check_admin_referer( 'redirect-editor' ) ) {
+			$redirects_raw = $_POST['redirects'];
 
-			# explode each line on space
-			$redirects_array = array();
+			# explode textarea on newline
+			$redirect_lines = explode( "\n", $redirects_raw );
+
+			$redirects = array();
 			foreach ( $redirect_lines as $redirect_line ) {
-				$redirect_line = explode( " ", preg_replace( '/\s+/', ' ', trim( $redirect_line ) ), 2 );
+				# clean up any extraneous spaces
+				$redirect_line = preg_replace( '/\s+/', ' ', trim( $redirect_line ) );
+
+				# skip lines that begin with '#' (hash), treat a comments
+				if ( substr( $redirect_line, 0, 1 ) == '#' ) {
+					continue;
+				}
+
+				# explode each line on space (there should only be one:
+				# between the path to match and the destination url)
+				$redirect_line = explode( " ", $redirect_line );
+
+				# skip lines that aren't made up of exactly 2 strings, separated by a space
+				# other than this, we don't do any validation
 				if ( count( $redirect_line ) != 2 ) {
 					continue;
 				}
-				$redirects_array[$redirect_line[0]] = $redirect_line[1];
+				$redirects[$redirect_line[0]] = $redirect_line[1];
 			}
 
-			update_option( 'redirect_editor', $redirects_array );
+			$settings = array();
+			$settings['redirects_raw'] = $redirects_raw;
+			$settings['redirects'] = $redirects;
+
+			update_option( 'redirect_editor', $settings );
 		}
 
-		// we can redirect here because save_data is called in admin_init action
+		// we can redirect here because save_data() is called in admin_init action
 		wp_redirect( admin_url( 'options-general.php?page=redirect-editor' ) );
 	}
 
 	// it all comes down to this
-	function redirect_editor( $query ) {
+	function redirect( $query ) {
 		$request_url = $_SERVER["REQUEST_URI"];
-		$redirects = get_option( 'redirect_editor', array() );
+		$redirects = $this->get_setting('redirects', array() );
 
 		if ( array_key_exists( $request_url, $redirects ) ) {
 			wp_redirect( $redirects[$request_url], 301 );

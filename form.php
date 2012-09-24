@@ -11,7 +11,7 @@
 
 		<p><textarea name='redirects' style='width:100%;height:15em;white-space:nowrap;font-family:Consolas,Monaco,monospace;' wrap="off"><?php print esc_textarea( $redirects ); ?></textarea></p>
 
-		<p><button type='submit' name='function' class='button' value='save-redirects'>Save</button></p>
+		<p><button type='submit' name='function' class='button' value='redirect-editor-save'>Save</button></p>
 
 	</form>
 </div>
