@@ -15,9 +15,11 @@ Centrally edit and manage .htaccess-style 301 redirects.
 Unlike more complex plugins for managing redirects, the Redirect Editor gives 
 you a simple textarea to edit and manage `.htaccess`-style 301 redirects, one per line.
 
-Enter each redirect rule in the following format, starting with the relative 
-path of the requested URL to match, followed by the absolute URL of the 
-destination to redirect to, separated by a space.
+Enter each redirect rule in the following format, starting with the 
+relative path of the URL to match, followed by the absolute URL of the 
+destination to redirect to, separated by a space. Each redirect should 
+be on its own line. Blank lines and lines that start with # (hash) are 
+ignored and can be used for spacing and comments.
 
     /2012/09/old-post/ http://www.example.com/2012/09/new-post/
 
