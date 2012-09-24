@@ -62,7 +62,7 @@ class Redirect_Editor_Plugin {
 			return;
 		}
 
-		if ( isset( $_POST['redirects']) && check_admin_referer( 'redirect-editor' ) ) {
+		if ( isset( $_POST['redirects'] ) && check_admin_referer( 'redirect-editor' ) ) {
 			$redirects_raw = stripslashes( $_POST['redirects'] );
 
 			# explode textarea on newline
@@ -104,7 +104,7 @@ class Redirect_Editor_Plugin {
 	// it all comes down to this
 	function redirect( $query ) {
 		$request_url = $_SERVER["REQUEST_URI"];
-		$redirects = $this->get_setting('redirects', array() );
+		$redirects = $this->get_setting( 'redirects', array() );
 
 		if ( array_key_exists( $request_url, $redirects ) ) {
 			wp_redirect( $redirects[$request_url], 301 );
