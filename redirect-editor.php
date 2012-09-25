@@ -35,7 +35,7 @@ class Redirect_Editor_Plugin {
 	}
 
 	public function add_admin_menu() {
-		add_options_page( 'Redirect Editor', 'Redirect Editor', 'manage_options', 'redirect-editor', array( &$this, 'admin_page' ) );
+		add_options_page( 'Redirect Editor', 'Redirect Editor', 'manage_options', 'redirect-editor', array( $this, 'admin_page' ) );
 	}
 
 	public function admin_page() {
