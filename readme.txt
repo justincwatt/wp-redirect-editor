@@ -25,6 +25,9 @@ ignored and can be used for spacing and comments.
 
 After installing, go to Settings > Redirect Editor to configure.
 
+If you're interested in contributing to the code behind this plugin, it's also hosted on GitHub:
+https://github.com/justincwatt/wp-redirect-editor
+
 == Installation ==
 
 Extract the zip file, drop the contents in your wp-content/plugins/ directory, and then activate from the Plugins page.
