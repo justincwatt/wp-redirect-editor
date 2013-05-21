@@ -1,5 +1,5 @@
 === Redirect Editor ===
-Contributors: justincwatt
+Contributors: justincwatt, weskoop
 Donate link: http://justinsomnia.org/2012/09/redirect-editor-plugin-for-wordpress/
 Tags: redirect, redirection, 301, 301 redirect, htaccess
 Requires at least: 3.0
@@ -43,9 +43,15 @@ No, just simple string matching.
 1. That's it, just a textarea.
 
 == Changelog ==
+= 1.1 =
+* Prevent redirect plugin from running on every query, in the admin, etc (thanks Wes Koop)
+
 = 1.0 =
 * Initial version
 
 == Upgrade Notice ==
+= 1.1 =
+Performance enchancement
+
 = 1.0 =
 Initial version
