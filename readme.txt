@@ -3,7 +3,7 @@ Contributors: justincwatt, weskoop
 Donate link: http://justinsomnia.org/2012/09/redirect-editor-plugin-for-wordpress/
 Tags: redirect, redirection, 301, 301 redirect, htaccess
 Requires at least: 3.0
-Tested up to: 3.6
+Tested up to: 3.9.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
