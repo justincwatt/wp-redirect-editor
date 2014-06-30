@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Redirect Editor
-Version: 1.1
+Version: 1.2
 Plugin URI: http://justinsomnia.org/2012/09/redirect-editor-plugin-for-wordpress/
 Description: Centrally edit and manage <code>.htaccess</code>-style 301 redirects. Go to <a href="options-general.php?page=redirect-editor">Settings &gt; Redirect Editor</a> to configure.
 Author: Justin Watt
@@ -45,6 +45,10 @@ class Redirect_Editor_Plugin {
 
 	function get_setting( $name, $default = '') {
 		$settings = get_option( 'redirect_editor', array() );
+
+		if ( !is_array( $settings ) ) {
+			$settings = array();
+		}
 
 		if ( array_key_exists( $name, $settings ) ) {
 			return $settings[$name];
