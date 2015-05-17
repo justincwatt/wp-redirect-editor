@@ -3,7 +3,7 @@ Contributors: justincwatt, weskoop
 Donate link: http://justinsomnia.org/2012/09/redirect-editor-plugin-for-wordpress/
 Tags: redirect, redirection, 301, 301 redirect, htaccess
 Requires at least: 3.0
-Tested up to: 3.9.1
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,6 +43,9 @@ No, just simple string matching.
 1. That's it, just a textarea.
 
 == Changelog ==
+= 1.2 =
+* Fix CSS error causing redirect lines to all appear on a single line
+
 = 1.1 =
 * Prevent redirect plugin from running on every query, in the admin, etc (thanks Wes Koop)
 
@@ -50,6 +53,9 @@ No, just simple string matching.
 * Initial version
 
 == Upgrade Notice ==
+= 1.2 =
+Fix for suppressed newlines
+
 = 1.1 =
 Performance enchancement
 

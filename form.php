@@ -14,7 +14,7 @@
 
 		<p><pre><code>/2012/09/old-post/ http://www.example.com/2012/09/new-post/</code></pre></p>
 
-		<p><textarea name='redirects' style='width:100%;height:15em;white-space:nowrap;font-family:Consolas,Monaco,monospace;' wrap="off"><?php print esc_textarea( $redirects ); ?></textarea></p>
+		<p><textarea name='redirects' style='width:100%;height:15em;white-space:pre;font-family:Consolas,Monaco,monospace;'><?php print esc_textarea( $redirects ); ?></textarea></p>
 
 		<p><button type='submit' name='function' class='button button-primary' value='redirect-editor-save'>Save</button></p>
 
