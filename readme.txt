@@ -43,8 +43,11 @@ No, just simple string matching.
 1. That's it, just a textarea.
 
 == Changelog ==
-= 1.2 =
+= 1.3 =
 * Fix CSS error causing redirect lines to all appear on a single line
+
+= 1.2 =
+* Minor fix for possible corrupted redirects options
 
 = 1.1 =
 * Prevent redirect plugin from running on every query, in the admin, etc (thanks Wes Koop)
@@ -53,8 +56,11 @@ No, just simple string matching.
 * Initial version
 
 == Upgrade Notice ==
+= 1.3 =
+Bug fix
+
 = 1.2 =
-Fix for suppressed newlines
+Bug fix
 
 = 1.1 =
 Performance enchancement
