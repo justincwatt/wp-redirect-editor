@@ -61,7 +61,12 @@ class Redirect_Editor_Plugin {
 	// format: /2012/09/old-post/ http://www.example.com/2012/09/new-post/
 	function save_data() {
 		// since this gets called in the admin_init action, we only want it to 
+
+		
 		// run if we're actually processing data for the redirect_editor
+	
+		if(current_user_can('manage_options'))
+		{
 		if ( !isset( $_POST['function'] ) || $_POST['function'] != 'redirect-editor-save' ) {
 			return;
 		}
@@ -104,7 +109,7 @@ class Redirect_Editor_Plugin {
 		// we can redirect here because save_data() is called in admin_init action
 		wp_redirect( admin_url( 'options-general.php?page=redirect-editor' ) );
 	}
-
+}
 	// it all comes down to this
 	function redirect( $query ) {
 		if ( $query->is_main_query() && ! is_admin() ) {
