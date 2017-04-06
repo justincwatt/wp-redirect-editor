@@ -22,6 +22,11 @@ be on its own line. Blank lines and lines that start with # (hash) are
 ignored and can be used for spacing and comments.
 
     /2012/09/old-post/ http://www.example.com/2012/09/new-post/
+	
+You can also ro regex mathing and replacment such as some of these examples.  Note that the first mached rule will win.
+
+	/(.*)\.php /$1
+	/(someDir|SomeOtherDir)/? /custom-404
 
 After installing, go to Settings > Redirect Editor to configure.
 
@@ -43,6 +48,9 @@ No, just simple string matching.
 1. That's it, just a textarea.
 
 == Changelog ==
+= 1.4 =
+* Added support for regular expresssios in rules.
+
 = 1.3 =
 * Fix CSS error causing redirect lines to all appear on a single line
 
