@@ -112,7 +112,8 @@ class Redirect_Editor_Plugin {
 			$redirects = $this->get_setting( 'redirects', array() );
 
 			if ( array_key_exists( $request_url, $redirects ) ) {
-				wp_redirect( $redirects[$request_url], 301 );
+				$prefixSiteUrl = get_site_url() != $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER["HTTP_HOST"] ? get_site_url() : '';
+				wp_redirect( $prefixSiteUrl . $redirects[$request_url], 301 );
 				exit;
 			}
 			
@@ -120,7 +121,8 @@ class Redirect_Editor_Plugin {
 				if(strpbrk($match, '*$^{}[]')) { // Look for rules with Regex control charectors
 					$match = str_replace('/', '\/', $match);
 					if(preg_match("/$match/", $request_url)) { // See if the url matches the regex rule.
-						wp_redirect ( preg_replace("/$match/", $redirect, $request_url), 301 ); // If so apply the replacment value and redirect.
+						$prefixSiteUrl = get_site_url() != $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER["HTTP_HOST"] ? get_site_url() : '';
+						wp_redirect ( $prefixSiteUrl . preg_replace("/$match/", $redirect, $request_url), 301 ); // If so apply the replacment value and redirect.
 						exit;
 					}
 				}
