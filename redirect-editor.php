@@ -118,7 +118,7 @@ class Redirect_Editor_Plugin {
 			}
 			
 			foreach($redirects as $match => $redirect) {
-				if(strpbrk($match, '*$^{}[]')) { // Look for rules with Regex control charectors
+				if(strpbrk($match, '*$^{}[]()')) { // Look for rules with Regex control charectors
 					$match = str_replace('/', '\/', $match);
 					if(preg_match("/$match/", $request_url)) { // See if the url matches the regex rule.
 						$prefixSiteUrl = get_site_url() != $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER["HTTP_HOST"] ? get_site_url() : '';
