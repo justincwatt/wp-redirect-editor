@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Redirect Editor
-Version: 1.3
+Version: 1.4
 Plugin URI: http://justinsomnia.org/2012/09/redirect-editor-plugin-for-wordpress/
 Description: Centrally edit and manage <code>.htaccess</code>-style 301 redirects. Go to <a href="options-general.php?page=redirect-editor">Settings &gt; Redirect Editor</a> to configure.
 Author: Justin Watt
@@ -112,8 +112,20 @@ class Redirect_Editor_Plugin {
 			$redirects = $this->get_setting( 'redirects', array() );
 
 			if ( array_key_exists( $request_url, $redirects ) ) {
-				wp_redirect( $redirects[$request_url], 301 );
+				$prefixSiteUrl = get_site_url() != $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER["HTTP_HOST"] ? get_site_url() : '';
+				wp_redirect( $prefixSiteUrl . $redirects[$request_url], 301 );
 				exit;
+			}
+			
+			foreach($redirects as $match => $redirect) {
+				if(strpbrk($match, '*$^{}[]()')) { // Look for rules with Regex control charectors
+					$match = str_replace('/', '\/', $match);
+					if(preg_match("/$match/", $request_url)) { // See if the url matches the regex rule.
+						$prefixSiteUrl = get_site_url() != $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER["HTTP_HOST"] ? get_site_url() : '';
+						wp_redirect ( $prefixSiteUrl . preg_replace("/$match/", $redirect, $request_url), 301 ); // If so apply the replacment value and redirect.
+						exit;
+					}
+				}
 			}
 		}
 	}
